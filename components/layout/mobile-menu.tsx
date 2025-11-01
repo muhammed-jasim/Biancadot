@@ -13,6 +13,7 @@ import { SocialLinks } from "../social-links";
 import { TransitionTrigger } from "../transition-trigger";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "@/lib/hooks/use-media-query";
+import { AnimatedBrandName } from "@/components/animated-brand-name";
 
 interface MobileMenuProps {
   info: InfoFragment;
@@ -59,7 +60,7 @@ export const MobileMenu = ({ info }: MobileMenuProps) => {
             className={"text-subtitle col-span-5 font-black uppercase"}
             onClick={() => setOpen(false)}
           >
-            {info.title}
+            <AnimatedBrandName text={info.title} />
           </TransitionTrigger>
 
           <DialogClose className="font-black text-subtitle uppercase">

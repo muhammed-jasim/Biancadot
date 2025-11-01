@@ -4,6 +4,7 @@ import { SocialLinks } from "@/components/social-links";
 import { ProjectItem } from "@/components/project-item";
 import "@/basehub.config";
 import { CustomCursor } from "@/components/CustomCursor";
+import { applyInfoOverrides } from "@/lib/info-overrides";
 
 export const dynamic = "force-static";
 export const revalidate = 30;
@@ -16,6 +17,8 @@ export default async function Home() {
     },
   });
 
+  const overriddenInfo = applyInfoOverrides(info);
+
   return (
     <main className="px-sides mb-24">
       {/* hero section */}
@@ -23,11 +26,11 @@ export default async function Home() {
       <div className="pt-24 lg:pt-48 flex flex-col lg:grid grid-cols-12 gap-gap">
         <SocialLinks
           className="max-lg:hidden col-span-5"
-          links={info.socialLinks.items}
+          links={overriddenInfo.socialLinks.items}
         />
         <div className="col-span-7">
           <h1 className="text-heading font-black uppercase text-balance">
-            {info.heading}
+            {overriddenInfo.heading}
           </h1>
         </div>
       </div>

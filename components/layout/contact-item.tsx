@@ -14,13 +14,15 @@ export function ContactItem({
   ariaLabel,
 }: ContactItemProps) {
   return (
-    <div className="flex flex-col lg:grid grid-cols-9 lg:gap-gap place-items-baseline">
-      <span className="text-subtitle font-semibold opacity-30">{label}</span>
+    <div className="flex flex-col lg:grid grid-cols-9 lg:gap-gap place-items-baseline gap-2">
+      <span className="text-xs sm:text-sm uppercase tracking-[0.3em] font-semibold opacity-50">
+        {label}
+      </span>
       <Link
         aria-label={ariaLabel || `${label} link`}
         title={ariaLabel || `${label} link`}
         rel="noopener noreferrer"
-        className="text-heading font-black uppercase col-span-8"
+        className="text-lg sm:text-xl lg:text-2xl font-semibold col-span-8"
         href={href}
       >
         {value}
