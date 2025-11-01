@@ -266,3 +266,37 @@
   z-index: 1;
   animation: none !important;
 }
+
+.has-custom-cursor {
+  cursor: none;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #288474;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: transform 0.1s ease, background 0.2s ease, width 0.2s ease,
+    height 0.2s ease;
+}
+
+.custom-cursor.active {
+  transform: translate(-50%, -50%) scale(0.7);
+  background-color: #1e6350;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .has-custom-cursor {
+    cursor: auto;
+  }
+
+  .custom-cursor {
+    display: none;
+  }
+}

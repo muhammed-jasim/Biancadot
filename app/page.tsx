@@ -3,11 +3,12 @@ import { infoFragment, projectsItemFragment } from "@/lib/basehub";
 import { SocialLinks } from "@/components/social-links";
 import { ProjectItem } from "@/components/project-item";
 import "@/basehub.config";
+import { CustomCursor } from "@/components/CustomCursor";
 
 export const dynamic = "force-static";
 export const revalidate = 30;
 
-export default async function Home() {  
+export default async function Home() {
   const { info, projects } = await basehub().query({
     info: infoFragment,
     projects: {
@@ -18,6 +19,7 @@ export default async function Home() {
   return (
     <main className="px-sides mb-24">
       {/* hero section */}
+
       <div className="pt-24 lg:pt-48 flex flex-col lg:grid grid-cols-12 gap-gap">
         <SocialLinks
           className="max-lg:hidden col-span-5"
