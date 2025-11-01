@@ -329,6 +329,95 @@
   transform: translateY(0%);
 }
 
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s var(--ease-quad-out, cubic-bezier(0.25, 0.46, 0.45, 0.94)),
+    transform 0.6s var(--ease-quad-out, cubic-bezier(0.25, 0.46, 0.45, 0.94));
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal[data-direction="left"] {
+  transform: translateX(-32px);
+}
+
+.reveal[data-direction="right"] {
+  transform: translateX(32px);
+}
+
+.reveal[data-direction="down"] {
+  transform: translateY(-24px);
+}
+
+.reveal[data-direction="scale"] {
+  transform: scale(0.95);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+.contact-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.2rem;
+  transition:
+    transform 0.35s var(--ease-quad-out, cubic-bezier(0.25, 0.46, 0.45, 0.94)),
+    opacity 0.35s ease;
+}
+
+.contact-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-quad-out, cubic-bezier(0.25, 0.46, 0.45, 0.94));
+  opacity: 0.4;
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.contact-link:hover::after,
+.contact-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.contact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, currentColor 12%, transparent),
+    color-mix(in srgb, currentColor 5%, transparent)
+  );
+  transition:
+    transform 0.3s var(--ease-quad-out, cubic-bezier(0.25, 0.46, 0.45, 0.94)),
+    box-shadow 0.3s ease;
+}
+
+.contact-chip:hover,
+.contact-chip:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -20px rgba(0, 0, 0, 0.6);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .brand-anim span {
     transition: none;
@@ -341,5 +430,17 @@
   .brand-anim:hover span:nth-child(1),
   .brand-anim:focus-visible span:nth-child(1) {
     transform: none;
+  }
+
+  .reveal,
+  .reveal[data-direction] {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .contact-link,
+  .contact-chip {
+    transition: none;
   }
 }

@@ -22,7 +22,7 @@ export function ContactItem({
         aria-label={ariaLabel || `${label} link`}
         title={ariaLabel || `${label} link`}
         rel="noopener noreferrer"
-        className="text-lg sm:text-xl lg:text-2xl font-semibold col-span-8"
+        className="contact-link text-lg sm:text-xl lg:text-2xl font-semibold col-span-8"
         href={href}
       >
         {value}
