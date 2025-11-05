@@ -16,40 +16,28 @@ export function CustomCursor() {
   }, []);
 
   useEffect(() => {
-    let mouseX = 0;
-    let mouseY = 0;
-    let posX = 0;
-    let posY = 0;
-
-    const move = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+    const move = (e: MouseEvent | PointerEvent) => {
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+      }
     };
 
     const down = () => setIsActive(true);
     const up = () => setIsActive(false);
 
-    const animate = () => {
-      posX += (mouseX - posX) * 0.2;
-      posY += (mouseY - posY) * 0.2;
+    // Prefer pointer events for broader device support; fall back to mouse
+    const moveEvent = "onpointermove" in window ? "pointermove" : "mousemove";
+    const downEvent = "onpointerdown" in window ? "pointerdown" : "mousedown";
+    const upEvent = "onpointerup" in window ? "pointerup" : "mouseup";
 
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
-      }
-
-      requestAnimationFrame(animate);
-    };
-
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mousedown", down);
-    window.addEventListener("mouseup", up);
-
-    animate();
+    window.addEventListener(moveEvent as any, move as any, { passive: true });
+    window.addEventListener(downEvent as any, down as any, { passive: true });
+    window.addEventListener(upEvent as any, up as any, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mousedown", down);
-      window.removeEventListener("mouseup", up);
+      window.removeEventListener(moveEvent as any, move as any);
+      window.removeEventListener(downEvent as any, down as any);
+      window.removeEventListener(upEvent as any, up as any);
     };
   }, []);
 
