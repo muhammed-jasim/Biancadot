@@ -4,6 +4,7 @@ import { basehub } from "basehub";
 import { RichText, type RichTextNode } from "basehub/react-rich-text";
 import { Metadata } from "next";
 import "@/basehub.config";
+import { RevealOnScroll } from "@/components/reveal-on-scroll";
 
 
 export const dynamic = "force-static";
@@ -19,11 +20,13 @@ export default async function About() {
   });
   return (
     <main className="px-sides my-24 min-h-fold">
-      <h1 className="lg:hidden text-heading font-black uppercase text-balance mb-6">
-        About
-      </h1>
+      <RevealOnScroll direction="down" delay={0}>
+        <h1 className="lg:hidden text-heading font-black uppercase text-balance mb-6">
+          About
+        </h1>
+      </RevealOnScroll>
       <div className="flex flex-col lg:grid grid-cols-12 gap-gap">
-        <div className="col-span-5">
+        <RevealOnScroll direction="right" delay={100} className="col-span-5">
           <Media
             media={about.aboutPhoto}
             alt={(originalAlt) => originalAlt || "About photo"}
@@ -31,13 +34,19 @@ export default async function About() {
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             priority
           />
-        </div>
+        </RevealOnScroll>
         <div className="col-span-7 flex flex-col py-2">
           <h1 className="sr-only">About</h1>
           <div className="flex flex-col divide-y divide-border">
-            <AboutSection title="Bio" richText={about.bio} />
-            <AboutSection title="Awards" richText={about.awards} />
-            <AboutSection title="Clients" richText={about.clients} />
+            <RevealOnScroll direction="up" delay={300}>
+              <AboutSection title="Bio" richText={about.bio} />
+            </RevealOnScroll>
+            <RevealOnScroll direction="up" delay={400}>
+              <AboutSection title="Awards" richText={about.awards} />
+            </RevealOnScroll>
+            <RevealOnScroll direction="up" delay={500}>
+              <AboutSection title="Clients" richText={about.clients} />
+            </RevealOnScroll>
           </div>
         </div>
       </div>

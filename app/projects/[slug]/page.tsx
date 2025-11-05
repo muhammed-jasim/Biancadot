@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Media } from "@/components/media";
 import { NavigationButton } from "@/components/navigation-button";
 import "@/basehub.config";
+import { RevealOnScroll } from "@/components/reveal-on-scroll";
 
 export const dynamic = "force-static";
 export const revalidate = 30;
@@ -100,17 +101,19 @@ export default async function Page({
 
   return (
     <main className="px-sides my-24">
-      <h1 className="text-heading font-black text-balance mb-12">
-        {project._title}
-      </h1>
+      <RevealOnScroll direction="down" delay={0}>
+        <h1 className="text-heading font-black text-balance mb-12">
+          {project._title}
+        </h1>
+      </RevealOnScroll>
 
       <div className="flex flex-col md:grid grid-cols-12 gap-6 md:gap-gap">
-        <div className="col-span-5">
+        <RevealOnScroll direction="right" delay={100} className="col-span-5">
           <ProjectAttributes project={project} />
-        </div>
-        <div className="col-span-6 text-base leading-[1.2] font-semibold text-pretty">
+        </RevealOnScroll>
+        <RevealOnScroll direction="left" delay={200} className="col-span-6 text-base leading-[1.2] font-semibold text-pretty">
           <RichText content={project.description.json.content} />
-        </div>
+        </RevealOnScroll>
       </div>
 
       {/* Media Grid */}
@@ -130,12 +133,14 @@ export default async function Page({
               for (let i = 0; i < itemsPerRow && currentIndex < project.media.items.length; i++) {
                 const mediaItem = project.media.items[currentIndex];
                 rowItems.push(
-                  <div key={currentIndex} className={colSpan}>
-                    <Media
-                      media={mediaItem.media}
-                      className="rounded-[6px] aspect-square hover:rounded-[18px] transition-[border-radius] duration-500 ease-quad-out w-full h-auto"
-                    />
-                  </div>
+                  <RevealOnScroll key={currentIndex} direction="up" delay={300 + rowIndex * 100 + i * 50}>
+                    <div className={colSpan}>
+                      <Media
+                        media={mediaItem.media}
+                        className="rounded-[6px] aspect-square hover:rounded-[18px] transition-[border-radius] duration-500 ease-quad-out w-full h-auto"
+                      />
+                    </div>
+                  </RevealOnScroll>
                 );
                 currentIndex++;
               }
@@ -153,21 +158,23 @@ export default async function Page({
         </div>
       )}
 
-      <div className="flex justify-between gap-gap mt-6 md:mt-12">
-        <NavigationButton
-          href={prevProjectSlug ? `/projects/${prevProjectSlug}` : undefined}
-          variant="left"
-        >
-          Previous
-        </NavigationButton>
-        <NavigationButton href="/">Back</NavigationButton>
-        <NavigationButton
-          href={nextProjectSlug ? `/projects/${nextProjectSlug}` : undefined}
-          variant="right"
-        >
-          Next
-        </NavigationButton>
-      </div>
+      <RevealOnScroll direction="up" delay={200}>
+        <div className="flex justify-between gap-gap mt-6 md:mt-12">
+          <NavigationButton
+            href={prevProjectSlug ? `/projects/${prevProjectSlug}` : undefined}
+            variant="left"
+          >
+            Previous
+          </NavigationButton>
+          <NavigationButton href="/">Back</NavigationButton>
+          <NavigationButton
+            href={nextProjectSlug ? `/projects/${nextProjectSlug}` : undefined}
+            variant="right"
+          >
+            Next
+          </NavigationButton>
+        </div>
+      </RevealOnScroll>
     </main>
   );
 }
